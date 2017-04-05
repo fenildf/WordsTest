@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Words Text</string>
+    <string name="app_help">
+        请确保单词文件格式正确如下：\n\n\t\t\t\t1.每行中仅有一个单词及其词性释义，中间及结尾无空行；\n\t\t\t\t2.单词及其词性释义以空格分隔；\n\t\t\t\t3.单词中的空格使用下划线替换；\n\t\t\t\t4.每一条释义以半角分号分隔。
+    </string>
+
+    <string name="app_about">
+        简介：本软件为学习英语单词的用户开发，用户可以通过本软件对自己单词掌握情况进行测试。
+    </string>
+</resources>
