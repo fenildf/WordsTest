@@ -33,6 +33,8 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int[] themes = new int[]{R.style.AppTheme_Blue,R.style.AppTheme_Green};
+        setTheme(themes[getSharedPreferences("WordSettings", MODE_PRIVATE).getInt("skin",0)]);
         setContentView(R.layout.activity_setting);
 
 
@@ -126,6 +128,21 @@ public class SettingActivity extends AppCompatActivity {
         builder5.setPositiveButton("确定",null);
         final Dialog aboutDialog = builder5.create();
 
+        //换肤对话框
+        String[] skins = new String[]{"海洋蓝","清新绿"};
+        AlertDialog.Builder builder6 = new AlertDialog.Builder(SettingActivity.this);
+        builder6.setTitle("换肤");
+        builder6.setItems(skins, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                settingsPreferences.edit().putInt("skin",i).commit();
+                Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+        final Dialog skinDialog = builder6.create();
+
         //向列表中填入数据
         ListView list = (ListView) findViewById(R.id.listView);
         listData = new ArrayList<Map<String, String>>();
@@ -153,6 +170,10 @@ public class SettingActivity extends AppCompatActivity {
         data6.put("SettingKey","关于");
         data6.put("SettingValue","");
         listData.add(data6);
+        Map<String,String> data7 = new HashMap<String,String>();
+        data7.put("SettingKey","换肤");
+        data7.put("SettingValue",skins[settingsPreferences.getInt("skin",0)]);
+        listData.add(data7);
         listItemAdapter = new SimpleAdapter(
                 this,
                 listData,
@@ -183,6 +204,9 @@ public class SettingActivity extends AppCompatActivity {
                         break;
                     case 5:
                         aboutDialog.show();
+                        break;
+                    case 6:
+                        skinDialog.show();
                         break;
                 }
             }

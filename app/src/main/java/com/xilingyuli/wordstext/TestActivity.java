@@ -21,6 +21,8 @@ public class TestActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int[] themes = new int[]{R.style.WordActivityTheme_Blue,R.style.WordActivityTheme_Green};
+        setTheme(themes[getSharedPreferences("WordSettings", MODE_PRIVATE).getInt("skin",0)]);
         setContentView(R.layout.activity_test);
         wordOutput = (TextView)findViewById(R.id.textView);
         wordInf = (TextView)findViewById(R.id.textView3);
